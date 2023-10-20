@@ -23,33 +23,39 @@ jobs:
     steps:
       # Check out CANlib
       - uses: actions/checkout@v3
-        repository: "Duet3D/CANlib"
-        ref: "3.5-dev"
+        with:
+          repository: "Duet3D/CANlib"
+          ref: "3.5-dev"
 
       # Check out CoreN2G
       - uses: actions/checkout@v3
-        repository: "Duet3D/CoreN2G"
-        ref: "3.5-dev"
+        with:
+          repository: "Duet3D/CoreN2G"
+          ref: "3.5-dev"
 
       # Check out FreeRTOS
       - uses: actions/checkout@v3
-        repository: "Duet3D/FreeRTOS"
-        ref: "3.4-dev"
+        with:
+          repository: "Duet3D/FreeRTOS"
+          ref: "3.4-dev"
 
       # Check out RRFLibraries
       - uses: actions/checkout@v3
-        repository: "Duet3D/RRFLibraries"
-        ref: "3.5-dev"
+        with:
+          repository: "Duet3D/RRFLibraries"
+          ref: "3.5-dev"
 
       # Check out RRFLibraries
       - uses: actions/checkout@v3
-        repository: "Duet3D/DuetWiFiSocketServer"
-        ref: "dev"
+        with:
+          repository: "Duet3D/DuetWiFiSocketServer"
+          ref: "dev"
 
       # Check out RepRapFirmware
       - uses: actions/checkout@v3
-        repository: "Duet3D/RepRapFirmware"
-        ref: "3.5-dev"
+        with:
+          repository: "Duet3D/RepRapFirmware"
+          ref: "3.5-dev"
 
       # Prepare Eclipse-CDT
       - name: Set up Eclipse-CDT
