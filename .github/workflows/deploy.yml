@@ -69,6 +69,7 @@ jobs:
         run: |
           gh release download -R Duet3D/CrcAppender --pattern "CrcAppender-linux-x64"
           chmod +x ./CrcAppender-linux-x64
+          mv ./CrcAppender-linux-x64 ./CrcAppender
           export PATH=$(pwd):$PATH
 
       - name: "Set up Eclipse-CDT"
