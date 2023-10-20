@@ -60,7 +60,7 @@ jobs:
       # Prepare Eclipse-CDT
       - name: Set up Eclipse-CDT
         run: |
-          sudo apt-get install -y bsdtar default-jre
+          sudo apt-get install -y libarchive-tools default-jre
           sudo snap install --classic eclipse
 
       # Prepare ARM cross compiler
