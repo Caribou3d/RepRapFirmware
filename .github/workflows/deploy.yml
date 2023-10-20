@@ -61,7 +61,8 @@ jobs:
       - name: Set up Eclipse-CDT
         run: |
           sudo apt-get install -y libarchive-tools default-jre
-          sudo snap install --classic eclipse
+          curl -L -o eclipse-embedcpp-2023-09-R-linux-gtk-x86_64.tar.gz "https://pkg.duet3d.com/eclipse-cpp-2023-09-R-linux-gtk-x86_64.tar.gz"
+          sudo bsdtar -x -f ./eclipse-cpp-2023-09-R-linux-gtk-x86_64.tar.gz -C /opt
 
       # Prepare ARM cross compiler
       - name: Set up ARM GCC
@@ -72,10 +73,10 @@ jobs:
       # Prepare workspace
       - name: Set up workspace
         run: |
-           eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data /tmp/workspace -importAll $GITHUB_WORKSPACE
+           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data /tmp/workspace -E ArmGccPath=$GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin -importAll $GITHUB_WORKSPACE
 
       # Build RepRapFirmware (MB6HC)
       - name: Build Duet3_MB6HC
         run: |
-           eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data /tmp/workspace -E ArmGccPath=$GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin -cleanBuild "RepRapFirmware/Duet3_MB6HC"
+           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data /tmp/workspace -E ArmGccPath=$GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin -cleanBuild "RepRapFirmware/Duet3_MB6HC"
 
