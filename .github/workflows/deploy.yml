@@ -79,7 +79,7 @@ jobs:
 
       - name: "Set up ARM GCC"
         run: |
-          curl -L -o ./gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2 "https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/binrel/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz?rev=7bd049b7a3034e64885fa1a71c12f91d&hash=732D909FA8F68C0E1D0D17D08E057619"
+          curl -L -o ./arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/binrel/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz?rev=7bd049b7a3034e64885fa1a71c12f91d&hash=732D909FA8F68C0E1D0D17D08E057619"
           bsdtar -x -f ./arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
 
       - name: "Set up Eclipse workspace"
