@@ -81,5 +81,7 @@ jobs:
       # Prepare workspace
       - name: Set up workspace
         run: |
-           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=./gcc-arm-none-eabi-10.3-2021.10/bin -importAll ./ -cleanBuild "RepRapFirmware/Duet3_MB6HC"
+          echo "Trying to use GCC at $GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin"
+          ls $GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin"
+          /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin -importAll ./ -cleanBuild "RepRapFirmware/Duet3_MB6HC"
 
