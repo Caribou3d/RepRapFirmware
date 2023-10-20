@@ -64,6 +64,8 @@ jobs:
           path: "./RepRapFirmware"
 
       - name: "Prepare CrcAppender"
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release download -R Duet3D/CrcAppender --pattern "CrcAppender-linux-x64"
           chmod +x ./CrcAppender-linux-x64
