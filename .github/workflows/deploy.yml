@@ -1,4 +1,4 @@
-name: Build and and deploy DSF packages
+name: Build and and deploy firmware
 
 on:
   workflow_dispatch:
