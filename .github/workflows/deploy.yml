@@ -21,67 +21,70 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      # Check out CANlib
-      - uses: actions/checkout@v3
+      - name: "Check out CANlib"
+        uses: actions/checkout@v3
         with:
           repository: "Duet3D/CANlib"
           ref: "3.5-dev"
           path: "./CANlib"
 
-      # Check out CoreN2G
-      - uses: actions/checkout@v3
+      - name: "Check out CoreN2G"
+        uses: actions/checkout@v3
         with:
           repository: "Duet3D/CoreN2G"
           ref: "3.5-dev"
           path: "./CoreN2G"
 
-      # Check out FreeRTOS
-      - uses: actions/checkout@v3
+      - name: "Check out FreeRTOS"
+        uses: actions/checkout@v3
         with:
           repository: "Duet3D/FreeRTOS"
           ref: "3.4-dev"
           path: "./FreeRTOS"
 
-      # Check out RRFLibraries
-      - uses: actions/checkout@v3
+      - name: "Check out RRFLibraries"
+        uses: actions/checkout@v3
         with:
           repository: "Duet3D/RRFLibraries"
           ref: "3.5-dev"
           path: "./RRFLibraries"
 
-      # Check out RRFLibraries
-      - uses: actions/checkout@v3
+      - name: "Check out DuetWiFiSocketServer"
+        uses: actions/checkout@v3
         with:
           repository: "Duet3D/DuetWiFiSocketServer"
           ref: "dev"
           path: "./DuetWiFiSocketServer"
 
-      # Check out RepRapFirmware
-      - uses: actions/checkout@v3
+      - name: "Check out RepRapFirmware"
+        uses: actions/checkout@v3
         with:
           repository: "Duet3D/RepRapFirmware"
           ref: "3.5-dev"
           path: "./RepRapFirmware"
 
-      # Prepare Eclipse-CDT
-      - name: Set up Eclipse-CDT
+      - name: "Prepare CrcAppender"
+        run: |
+          gh release download -R Duet3D/CrcAppender --pattern "CrcAppender-linux-x64"
+          chmod +x ./CrcAppender-linux-x64
+          export PATH=$(pwd):$PATH
+
+      - name: "Set up Eclipse-CDT"
         run: |
           sudo apt-get install -y libarchive-tools default-jre
           curl -L -O "https://pkg.duet3d.com/eclipse-cpp-2023-09-R-linux-gtk-x86_64.tar.gz"
           sudo bsdtar -x -f ./eclipse-cpp-2023-09-R-linux-gtk-x86_64.tar.gz -C /opt
 
-      # Prepare ARM cross compiler
-      - name: Set up ARM GCC
+      - name: "Set up ARM GCC"
         run: |
           curl -L -o ./gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2 "https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2?rev=78196d3461ba4c9089a67b5f33edf82a&hash=5631ACEF1F8F237389F14B41566964EC"
           bsdtar -x -f ./gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2
-          ls
-          pwd
 
-      # Prepare workspace
-      - name: Set up workspace
+      - name: "Set up Eclipse workspace"
         run: |
-          echo "Trying to use GCC at $GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin"
-          ls $GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin
-          /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin -importAll ./ -cleanBuild "RepRapFirmware/Duet3_MB6HC"
+          /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin -importAll ./
+
+      - name: "Build Duet3_MB6HC"
+        run: |
+          /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin -cleanBuild "RepRapFirmware/Duet3Mini5plus"
 
