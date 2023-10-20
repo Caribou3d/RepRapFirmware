@@ -72,10 +72,10 @@ jobs:
       # Prepare workspace
       - name: Set up workspace
         run: |
-           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data /tmp/workspace -importAll $GITHUB_WORKSPACE
+           /snap/bin/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data /tmp/workspace -importAll $GITHUB_WORKSPACE
 
       # Build RepRapFirmware (MB6HC)
       - name: Build Duet3_MB6HC
         run: |
-           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data /tmp/workspace -E ArmGccPath=$GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin -cleanBuild "RepRapFirmware/Duet3_MB6HC"
+           /snap/bin/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data /tmp/workspace -E ArmGccPath=$GITHUB_WORKSPACE/gcc-arm-none-eabi-10.3-2021.10/bin -cleanBuild "RepRapFirmware/Duet3_MB6HC"
 
