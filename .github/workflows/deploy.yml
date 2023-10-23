@@ -197,13 +197,19 @@ jobs:
         with:
           name: firmware-binaries
           path: |
-            ./*/*.bin
-            ./*/*.uf2
+            ./RepRapFirmware/*/*.bin
+            ./RepRapFirmware/*/*.uf2
+            ./Duet3Bootloader/*/*.bin
+            ./Duet3Bootloader/*/*.uf2
+            ./Duet3Expansion/*/*.bin
+            ./Duet3Expansion/*/*.uf2
 
       - name: "Upload symbols"
         uses: actions/upload-artifact@v3
         with:
           name: firmware-binaries
           path: |
-            ./*/*.map
+            ./RepRapFirmware/*/*.map
+            ./Duet3Bootloader/*/*.map
+            ./Duet3Expansion/*/*.map
 
