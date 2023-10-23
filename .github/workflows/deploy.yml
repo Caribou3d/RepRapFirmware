@@ -203,6 +203,7 @@ jobs:
           mv ./Duet3Expansion/*/*.bin ./ || true
           mv ./Duet3Expansion/*/*.uf2 ./ || true
           mv ./Duet3Expansion/*/*.map ./ || true
+          rm ./Duet3Mini5plus.bin
 
       - name: "Attach binaries"
         uses: actions/upload-artifact@v3
