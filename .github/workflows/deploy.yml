@@ -85,6 +85,12 @@ jobs:
           chmod +x ./CrcAppender-linux-x64
           sudo mv ./CrcAppender-linux-x64 /usr/bin/CrcAppender
 
+      - name: "Adjust versions"
+        run: |
+          sed -i "s/# define MAIN_VERSION.\+/# define MAIN_VERSION \"${{ inputs.version }}\"/g" ./RepRapFirmware/src/Version.h
+          sed -i "s/# define VERSION_TEXT.\+/# define VERSION_TEXT \"${{ inputs.version }}\"/g" ./Duet3Bootloader/src/Version.h
+          sed -i "s/# define VERSION.\+/# define VERSION \"${{ inputs.version }}\"/g" ./Duet3Expansion/src/Version.h
+
       - name: "Set up Eclipse-CDT"
         run: |
           sudo apt-get install -y libarchive-tools default-jre
@@ -117,58 +123,72 @@ jobs:
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "RepRapFirmware/Duet3_MB6XD"
 
       - name: "Build Duet3Bootloader Duet3_MB6HC"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Bootloader/Duet3_MB6HC"
 
       - name: "Build Duet3Bootloader Duet3_MB6XD"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Bootloader/Duet3_MB6XD"
 
       - name: "Build Duet3Bootloader Duet3_Mini5plus"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Bootloader/Duet3_Mini5plus"
 
       - name: "Build Duet3Bootloader SAMC21"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Bootloader/SAMC21"
 
       - name: "Build Duet3Bootloader SAME5x"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Bootloader/SAME5x"
 
       - name: "Build Duet3Bootloader SAMMYC21"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Bootloader/SAMMYC21"
 
       - name: "Build Duet3Expansion EXP1HCL"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/EXP1HCL"
 
       - name: "Build Duet3Expansion EXP1XD"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/EXP1XD"
 
       - name: "Build Duet3Expansion EXP3HC"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/EXP3HC"
 
       - name: "Build Duet3Expansion M23CL"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/M23CL"
 
       - name: "Build Duet3Expansion SAMMYC21"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/SAMMYC21"
 
       - name: "Build Duet3Expansion SZP"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/SZP"
 
       - name: "Build Duet3Expansion TOOL1LC"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/TOOL1LC"
 
       - name: "Build Duet3Expansion TOOL1RR"
+        if: false
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/TOOL1RR"
 
