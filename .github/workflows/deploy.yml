@@ -18,7 +18,7 @@ on:
         type: string
 
 jobs:
-  prepare:
+  build:
     name: "Prepare build environment"
     runs-on: ubuntu-22.04
     steps:
@@ -90,11 +90,6 @@ jobs:
           curl -L -o ./arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/12.2.rel1/binrel/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz?rev=7bd049b7a3034e64885fa1a71c12f91d&hash=732D909FA8F68C0E1D0D17D08E057619"
           bsdtar -x -f ./arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
 
-  build:
-    name: "Build projects"
-    needs: prepare
-    runs-on: ubuntu-22.04
-    steps:
       - name: "Set up Eclipse workspace"
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -importAll ./
@@ -171,11 +166,6 @@ jobs:
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/TOOL1RR"
 
-  pack:
-    name: "Upload as artifacts"
-    needs: build
-    runs-on: ubuntu-22.04
-    steps:
       - name: "Upload binaries"
         uses: actions/upload-artifact@v3
         with:
