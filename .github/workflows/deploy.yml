@@ -19,7 +19,6 @@ on:
 
 jobs:
   build:
-    name: "Prepare build environment"
     runs-on: ubuntu-22.04
     steps:
       - name: "Check out CANlib"
@@ -56,6 +55,13 @@ jobs:
           repository: "Duet3D/DuetWiFiSocketServer"
           ref: "dev"
           path: "./DuetWiFiSocketServer"
+
+      - name: "Check out FreeRTOS"
+        uses: actions/checkout@v3
+        with:
+          repository: "Duet3D/FreeRTOS"
+          ref: "3.4-dev"
+          path: "./FreeRTOS"
 
       - name: "Check out RepRapFirmware"
         uses: actions/checkout@v3
