@@ -112,7 +112,7 @@ jobs:
 
       - name: "Build RepRapFirmare Duet3Mini5plus"
         run: |
-          /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "RepRapFirmware/Duet3_MB6HC"
+          /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "RepRapFirmware/Duet3Mini5plus"
 
       - name: "Build RepRapFirmare Duet3_MB6HC"
         run: |
@@ -192,24 +192,30 @@ jobs:
         run: |
           /opt/eclipse/eclipse --launcher.suppressErrors -nosplash -application org.eclipse.cdt.managedbuilder.core.headlessbuild -data ./workspace -E ArmGccPath=$GITHUB_WORKSPACE/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi/bin -cleanBuild "Duet3Expansion/TOOL1RR"
 
-      - name: "Upload binaries"
-        uses: actions/upload-artifact@v3
-        with:
-          name: firmware-binaries
-          path: |
-            ./RepRapFirmware/*/*.bin
-            ./RepRapFirmware/*/*.uf2
-            ./Duet3Bootloader/*/*.bin
-            ./Duet3Bootloader/*/*.uf2
-            ./Duet3Expansion/*/*.bin
-            ./Duet3Expansion/*/*.uf2
+      - name: "Arrange files"
+        run: |
+          mv ./RepRapFirmware/*/*.bin ./
+          mv ./RepRapFirmware/*/*.uf2 ./
+          mv ./RepRapFirmware/*/*.map ./
+          mv ./Duet3Bootloader/*/*.bin ./ || true
+          mv ./Duet3Bootloader/*/*.uf2 ./ || true
+          mv ./Duet3Bootloader/*/*.map ./ || true
+          mv ./Duet3Expansion/*/*.bin ./ || true
+          mv ./Duet3Expansion/*/*.uf2 ./ || true
+          mv ./Duet3Expansion/*/*.map ./ || true
 
-      - name: "Upload symbols"
+      - name: "Attach binaries"
         uses: actions/upload-artifact@v3
         with:
-          name: firmware-binaries
+          name: binaries
           path: |
-            ./RepRapFirmware/*/*.map
-            ./Duet3Bootloader/*/*.map
-            ./Duet3Expansion/*/*.map
+            ./*.bin
+            ./*.uf2
+
+      - name: "Attach symbols"
+        uses: actions/upload-artifact@v3
+        with:
+          name: symbols
+          path: |
+            ./*.map
 
