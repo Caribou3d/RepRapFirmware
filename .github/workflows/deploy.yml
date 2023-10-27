@@ -63,6 +63,13 @@ jobs:
           ref: "3.4-dev"
           path: "./FreeRTOS"
 
+      - name: "Check out Qfplib-M0-full"
+        uses: actions/checkout@v3
+        with:
+          repository: "Duet3D/Qfplib-M0-full"
+          ref: "master"
+          path: "./Qfplib-M0-full"
+
       - name: "Check out RepRapFirmware"
         uses: actions/checkout@v3
         with:
