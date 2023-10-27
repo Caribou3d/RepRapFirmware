@@ -194,7 +194,7 @@ jobs:
           mv ./Duet3Bootloader/*/*.map ./
           mv ./Duet3Expansion/*/*.bin ./
           mv ./Duet3Expansion/*/*.map ./
-          rm ./Duet3Mini5plus.bin
+          rm ./Duet3Firmware_Mini5plus.bin
 
       - name: "Attach binaries"
         uses: actions/upload-artifact@v3
